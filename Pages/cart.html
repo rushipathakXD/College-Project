@@ -1,0 +1,420 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Cart | AQuiLL</title>
+  <link rel="stylesheet" href="../stylesheets/cart.css">
+  <style>
+    body {
+      background: url('https://www.weberlogistics.com/hs-fs/hubfs/Chemical-warehouse-3-resized.jpg?width=1148&name=Chemical-warehouse-3-resized.jpg') no-repeat center center fixed;
+      background-size: cover;
+      background-attachment: fixed;
+    }
+    .order-popup {
+      display: none;
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100vw;
+      height: 100vh;
+      background: rgba(0,0,0,0.35);
+      justify-content: center;
+      align-items: center;
+      z-index: 9999;
+    }
+    .order-popup-content {
+      background: #fff;
+      border-radius: 18px;
+      padding: 36px 32px;
+      box-shadow: 0 8px 32px rgba(0,0,0,0.18);
+      text-align: center;
+      animation: fadeInUp 0.5s ease;
+    }
+    .order-popup-content h2 {
+      font-size: 1.6rem;
+      color: #6759ff;
+      margin-bottom: 12px;
+    }
+    .order-popup-content p {
+      font-size: 1.1rem;
+      color: #333;
+      margin-bottom: 22px;
+    }
+    #close-popup {
+      padding: 10px 32px;
+      border-radius: 50px;
+      background: linear-gradient(90deg, #ffc034, #ff7a18);
+      color: #fff;
+      font-weight: 600;
+      font-size: 1rem;
+      border: none;
+      cursor: pointer;
+      box-shadow: 0 4px 16px rgba(255,192,52,0.08);
+      transition: background 0.3s, transform 0.2s;
+    }
+    #close-popup:hover {
+      background: linear-gradient(90deg, #ff7a18, #ffc034);
+      transform: scale(1.04);
+    }
+  </style>
+  <link href="https://fonts.googleapis.com/css2?family=Karla:wght@400;700&display=swap" rel="stylesheet">
+</head>
+<body>
+  <!-- Navbar copied from other pages for consistency -->
+  <div class="nav">
+    <div class="wrap" style="padding: 8px 0px 8px 0px; justify-content: space-around; align-items: center;">
+      <div class="navLogo">
+        <a href="../index.html">
+          <img src="../Assets/finalLogo.png" alt="">
+        </a>
+      </div>
+      <div class="navList">
+        <a href="../pages/Product.html" style="background-color: #fff;">
+          <h4 style="background-color: #fff;"> Product</h4>
+        </a>
+        <a href="../pages/Sustain.html" style="background-color: #fff;">
+          <h4 style="background-color: #fff;"> Sustainbility </h4>
+        </a>
+        <a href="../pages/cont.html" style="background-color: #fff;">
+          <h4 style="background-color: #fff;"> Contact Us </h4>
+        </a>
+        <a href="../pages/account.html" style="background-color: #fff;"><h4 style="background-color: #fff;"> Account </h4></a>
+      </div>
+    </div>
+  </div>
+  <div class="helper" style="height: 120px;"></div>
+
+  <div id="cart-container">
+    <h2>Your Cart</h2>
+    <div id="cart-products">
+      <!-- Dynamic products will be injected here -->
+    </div>
+    <h3 id="cart-total">Total: ₹0</h3>
+    <h3>Delivery Address:</h3>
+    <textarea id="delivery-address" placeholder="Enter your address"></textarea>
+    <h3>Estimated Delivery: 7 Days</h3>
+  <button id="order-now">Order Now (Cash on Delivery)</button>
+  <button id="pay-online" style="margin-top:12px;width:100%;padding:14px 0;background:#6759ff;color:#fff;font-weight:600;font-size:1.1rem;border:none;border-radius:50px;cursor:pointer;box-shadow:0 4px 16px rgba(103,89,255,0.15);transition:background 0.3s,transform 0.2s;">Order Now (Pay Online)</button>
+  </div>
+
+  <!-- Popup Modal -->
+  <!-- Payment Modal -->
+  <div id="payment-modal" class="order-popup" style="z-index:10000;">
+    <div class="order-popup-content" style="max-width:350px;">
+      <h2 style="color:#6759ff;">Online Payment</h2>
+      <form id="payment-form" style="display:flex;flex-direction:column;gap:12px;">
+        <input type="text" id="card-number" maxlength="19" placeholder="Card Number" required style="padding:10px;border-radius:8px;border:1px solid #ccc;font-size:1rem;transition:border-color 0.2s;">
+        <div style="display:flex;gap:8px;">
+          <input type="text" id="card-exp" maxlength="5" placeholder="MM/YY" required style="flex:1;padding:10px;border-radius:8px;border:1px solid #ccc;font-size:1rem;transition:border-color 0.2s;">
+          <input type="text" id="card-cvc" maxlength="4" placeholder="CVC" required style="width:50px;padding:10px;border-radius:8px;border:1px solid #ccc;font-size:1rem;transition:border-color 0.2s;">
+        </div>
+        <input type="text" id="card-name" placeholder="Name on Card" required style="padding:10px;border-radius:8px;border:1px solid #ccc;font-size:1rem;transition:border-color 0.2s;">
+        <button type="submit" style="padding:12px 0;background:#6759ff;color:#fff;font-weight:600;font-size:1.1rem;border:none;border-radius:50px;cursor:pointer;box-shadow:0 4px 16px rgba(103,89,255,0.15);transition:background 0.3s,transform 0.2s;">Pay Now</button>
+        <button type="button" id="close-payment" style="padding:10px 0;background:#ccc;color:#333;font-weight:500;font-size:1rem;border:none;border-radius:50px;cursor:pointer;">Cancel</button>
+      </form>
+      <p id="payment-error" style="color:#ff5a5a;margin-top:8px;display:none;"></p>
+    </div>
+  </div>
+  <div id="order-popup" class="order-popup">
+    <div class="order-popup-content">
+      <h2>Order Confirmation</h2>
+      <p id="popup-message">Your order has been placed successfully!</p>
+      <button id="close-popup">OK</button>
+    </div>
+  </div>
+
+  <script>
+    // Payment Modal Logic
+    const payOnlineBtn = document.getElementById('pay-online');
+    const paymentModal = document.getElementById('payment-modal');
+    const closePayment = document.getElementById('close-payment');
+    const paymentForm = document.getElementById('payment-form');
+    const paymentError = document.getElementById('payment-error');
+
+    function getOrders() {
+      let orders = localStorage.getItem('orders');
+      return orders ? JSON.parse(orders) : [];
+    }
+    function setOrders(orders) {
+      localStorage.setItem('orders', JSON.stringify(orders));
+    }
+
+    payOnlineBtn.addEventListener('click', function() {
+      paymentModal.style.display = 'flex';
+      paymentError.style.display = 'none';
+      paymentForm.reset();
+    });
+    closePayment.addEventListener('click', function() {
+      paymentModal.style.display = 'none';
+    });
+    // Dynamic input highlight and validation
+    function highlightInput(input, valid) {
+      input.style.borderColor = valid ? '#4caf50' : '#ff5a5a';
+      setTimeout(() => { input.style.borderColor = '#ccc'; }, 1200);
+    }
+    paymentForm.addEventListener('submit', function(e) {
+      e.preventDefault();
+      // Simple validation (demo only)
+      const cardNumInput = document.getElementById('card-number');
+      const expInput = document.getElementById('card-exp');
+      const cvcInput = document.getElementById('card-cvc');
+      const nameInput = document.getElementById('card-name');
+      const cardNum = cardNumInput.value.replace(/\s+/g, '');
+      const exp = expInput.value;
+      const cvc = cvcInput.value;
+      const name = nameInput.value.trim();
+      let valid = true;
+      if(cardNum.length < 12 || !/^[0-9]+$/.test(cardNum)) {
+        paymentError.textContent = 'Invalid card number.';
+        paymentError.style.display = 'block';
+        highlightInput(cardNumInput, false);
+        valid = false;
+      } else highlightInput(cardNumInput, true);
+      if(!/^\d{2}\/\d{2}$/.test(exp)) {
+        paymentError.textContent = 'Invalid expiry (MM/YY).';
+        paymentError.style.display = 'block';
+        highlightInput(expInput, false);
+        valid = false;
+      } else highlightInput(expInput, true);
+      if(cvc.length < 3 || cvc.length > 4 || !/^[0-9]+$/.test(cvc)) {
+        paymentError.textContent = 'Invalid CVC.';
+        paymentError.style.display = 'block';
+        highlightInput(cvcInput, false);
+        valid = false;
+      } else highlightInput(cvcInput, true);
+      if(name.length < 2) {
+        paymentError.textContent = 'Enter name on card.';
+        paymentError.style.display = 'block';
+        highlightInput(nameInput, false);
+        valid = false;
+      } else highlightInput(nameInput, true);
+      if(!valid) return;
+      // Simulate payment success and save order
+      paymentError.style.display = 'none';
+      setTimeout(() => {
+        paymentModal.style.display = 'none';
+        // Save order to localStorage
+        const cartItems = getCart();
+        if (cartItems.length === 0) return;
+        const address = document.getElementById('delivery-address').value.trim();
+        let total = 0;
+        cartItems.forEach(item => { total += item.price * item.qty; });
+        const orders = getOrders();
+        const orderNumber = (orders.length ? orders[orders.length-1].orderNumber+1 : 1001);
+        const newOrder = {
+          orderNumber,
+          items: cartItems,
+          total,
+          address,
+          paymentMode: 'Online',
+          status: 'Confirmed'
+        };
+        orders.push(newOrder);
+        setOrders(orders);
+        setCart([]);
+        renderCart();
+        document.getElementById('popup-message').textContent = 'Payment successful! Your order has been placed.';
+        popup.style.display = 'flex';
+        setTimeout(() => { window.location.href = '../pages/orders.html'; }, 1200);
+      }, 900);
+    });
+    // --- Cart logic using localStorage, per user ---
+function getCurrentUser() {
+  return localStorage.getItem('currentUser');
+}
+function getUserCartKey() {
+  const user = getCurrentUser();
+  return user ? `cart_${user}` : null;
+}
+function getCart() {
+  const key = getUserCartKey();
+  if (!key) return [];
+  let cart = localStorage.getItem(key);
+  return cart ? JSON.parse(cart) : [];
+}
+function setCart(cart) {
+  const key = getUserCartKey();
+  if (key) localStorage.setItem(key, JSON.stringify(cart));
+}
+
+// --- Orders logic using localStorage, per user ---
+function getUserOrdersKey() {
+  const user = getCurrentUser();
+  return user ? `orders_${user}` : null;
+}
+function getOrders() {
+  const key = getUserOrdersKey();
+  if (!key) return [];
+  let orders = localStorage.getItem(key);
+  return orders ? JSON.parse(orders) : [];
+}
+function setOrders(orders) {
+  const key = getUserOrdersKey();
+  if (key) localStorage.setItem(key, JSON.stringify(orders));
+}
+
+// --- Cart rendering and update logic ---
+const cartContainer = document.getElementById("cart-products");
+const cartTotal = document.getElementById("cart-total");
+function renderCart() {
+  let cartItems = getCart();
+  cartContainer.innerHTML = "";
+  if(cartItems.length === 0) {
+    cartContainer.innerHTML = `<p class="empty-cart">Your cart is empty 🛒</p>`;
+    cartTotal.textContent = "Total: ₹0";
+    return;
+  }
+  let total = 0;
+  cartItems.forEach(item => {
+    total += item.price * item.qty;
+    cartContainer.innerHTML += `
+      <div class="cart-item">
+        <div class="cart-details">
+          <h4>${item.name}</h4>
+          <p>₹${item.price}</p>
+        </div>
+        <div class="cart-qty">
+          <input type="number" min="1" value="${item.qty}" data-id="${item.id}" class="qty-input">
+          <button class="remove-btn" data-id="${item.id}">✕</button>
+        </div>
+      </div>
+    `;
+  });
+  cartTotal.textContent = "Total: ₹" + total;
+}
+
+// Handle quantity change and remove
+cartContainer.addEventListener('input', function(e) {
+  if (e.target.classList.contains('qty-input')) {
+    let id = Number(e.target.getAttribute('data-id'));
+    let qty = parseInt(e.target.value) || 1;
+    let cart = getCart();
+    let item = cart.find(i => i.id === id);
+    if (item) {
+      item.qty = qty;
+      setCart(cart);
+      renderCart();
+    }
+  }
+});
+cartContainer.addEventListener('click', function(e) {
+  if (e.target.classList.contains('remove-btn')) {
+    let id = Number(e.target.getAttribute('data-id'));
+    let cart = getCart().filter(i => i.id !== id);
+    setCart(cart);
+    renderCart();
+  }
+});
+
+renderCart();
+
+    // Popup logic
+    const orderBtn = document.getElementById('order-now');
+    const popup = document.getElementById('order-popup');
+    const closePopup = document.getElementById('close-popup');
+    orderBtn.addEventListener('click', function() {
+      const address = document.getElementById('delivery-address').value.trim();
+      if (!address) {
+        document.getElementById('popup-message').textContent = 'Please enter your delivery address.';
+        popup.style.display = 'flex';
+        return;
+      }
+      // Save order to localStorage
+      const cartItems = getCart();
+      if (cartItems.length === 0) {
+        document.getElementById('popup-message').textContent = 'Your cart is empty!';
+        popup.style.display = 'flex';
+        return;
+      }
+      let total = 0;
+      cartItems.forEach(item => { total += item.price * item.qty; });
+      const orders = getOrders();
+      const orderNumber = (orders.length ? orders[orders.length-1].orderNumber+1 : 1001);
+      const newOrder = {
+        orderNumber,
+        items: cartItems,
+        total,
+        address,
+        paymentMode: 'Cash on Delivery',
+        status: 'Confirmed'
+      };
+      orders.push(newOrder);
+      setOrders(orders);
+      setCart([]);
+      renderCart();
+      document.getElementById('popup-message').textContent = 'Your order has been placed successfully!';
+      popup.style.display = 'flex';
+      setTimeout(() => { window.location.href = '../pages/orders.html'; }, 1200);
+    });
+    closePopup.addEventListener('click', function() {
+      popup.style.display = 'none';
+    });
+  </script>
+</body>
+
+<section>
+  <div class="sec4">
+    <div class="sec4First">
+      <div class="sec4LogoAndSocialMedia">
+        <div class="sec4Img">
+          <img src="../Assets/finalLogo.png" alt="notloded">
+        </div>
+        <div class="sec4slogo">
+          <img src="../Assets/facebook2.png" alt="">
+          <img src="../Assets/instgram2.png" alt="">
+          <img src="../Assets/linkdin2.png" alt="">
+          <img src="../Assets/twitter2.png" alt="">
+        </div>
+      </div>
+      <div class="sec4QuickLinks">
+        <h2>Quick Links</h2>
+        <ul>
+          <li>
+            <h4>Products</h4>
+          </li>
+          <li>
+            <h4>Industries</h4>
+          </li>
+          <li>
+            <h4>Sustainbilitys</h4>
+          </li>
+          <li>
+            <h4>R&D</h4>
+          </li>
+          <li>
+            <h4>Carrer</h4>
+          </li>
+        </ul>
+      </div>
+      <div class="sec4Contactus">
+        <h2>Contact Us</h2>
+        <ul>
+          <li>
+            <h4>Email : Helpline.aquill@gmail.com</h4>
+          </li>
+          <li>
+            <h4>Tel : +91 9328227272</h4>
+          </li>
+          <li>
+            <h4>Fax : +91 9909150835</h4>
+          </li>
+        </ul>
+      </div>
+    </div>
+    <div class="line">
+      <hr>
+    </div>
+    <div class="sec4Second">
+      <div class="sec4footerpart1">
+        <h3>Copyright © 2021 AQuiLL Chemical Industries Ltd. All rights reserved.</h3>
+        <h3>Handcrafted with ❤ by YUG SAVALIYA</h3>
+      </div>
+      <div class="sec4footerpart2">
+        <h3>Terms & Condition - Purchase - Sales Disclaimer Privacy Policy</h3>
+      </div>
+    </div>
+  </div>
+</section>
+</body>
+</html>

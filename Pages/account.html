@@ -1,0 +1,265 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>AQuiLL | Chemical company | Amreli</title>
+  <link rel="stylesheet" href="../stylesheets/account.css">
+    <link rel="shortcut icon" href="./Assets/fav.png" type="image/x-icon" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" />
+    <link
+        href="https://fonts.googleapis.com/css2?family=Karla:ital,wght@0,200;0,300;0,400;0,500;0,600;0,700;0,800;1,200;1,300;1,400;1,500;1,600;1,700;1,800&amp;display=swap"
+        rel="stylesheet" />
+</head>
+<body>
+  <div class="nav" style="height:100px;background:#fff;box-shadow:5px 5px 5px rgba(0,0,0,0.22);position:fixed;top:0;width:100vw;z-index:1000;overflow-x:hidden;transition:all 0.3s ease;">
+      <div class="wrap" style="max-width:2000px;margin:auto;display:flex;justify-content:space-between;align-items:center;height:80px;padding:0 32px;background:#fff;">
+        <div class="navLogo" style="padding:0 0 0 16px;display:flex;align-items:center;background:#fff;">
+          <a href="../index.html">
+            <img src="../Assets/finalLogo.png" alt="" style="height:56px;width:auto;object-fit:contain;object-position:left center;transition:transform 0.3s ease;">
+          </a>
+        </div>
+        <div class="navList" style="display:flex;gap:32px;align-items:center;">
+          <a href="../pages/Product.html" style="font-family:'Karla',Arial,Helvetica,sans-serif;font-weight:400;font-size:1.1rem;text-decoration:none;color:#000;position:relative;padding-bottom:4px;transition:all 0.3s ease;display:flex;align-items:center;">Product</a>
+          <a href="../pages/Sustain.html" style="font-family:'Karla',Arial,Helvetica,sans-serif;font-weight:400;font-size:1.1rem;text-decoration:none;color:#000;position:relative;padding-bottom:4px;transition:all 0.3s ease;display:flex;align-items:center;">Sustainbility</a>
+          <a href="../pages/cont.html" style="font-family:'Karla',Arial,Helvetica,sans-serif;font-weight:400;font-size:1.1rem;text-decoration:none;color:#000;position:relative;padding-bottom:4px;transition:all 0.3s ease;display:flex;align-items:center;">Contact Us</a>
+          <a href="../pages/account.html" style="font-family:'Karla',Arial,Helvetica,sans-serif;font-weight:400;font-size:1.1rem;text-decoration:none;color:#000;position:relative;padding-bottom:4px;transition:all 0.3s ease;display:flex;align-items:center;">Account</a>
+        </div>
+      </div>
+    </div>
+
+  <div class="main-container">
+    <!-- Login Card -->
+  <div class="card" id="loginCard" style="width:400px;">
+      <h2>Login</h2>
+      <input type="email" id="loginEmail" class="form-control" placeholder="Email">
+      <input type="password" id="loginPassword" class="form-control" placeholder="Password">
+      <button class="btn-block" onclick="login()">Login</button>
+      <div class="switch-text">Don’t have an account? <span onclick="showSignUp()">Sign up</span></div>
+    </div>
+
+    <!-- Sign Up Card -->
+    <div class="card" id="signupCard" style="display:none;">
+      <h2>Sign Up</h2>
+      <input type="text" id="fullName" class="form-control" placeholder="Full Name">
+      <input type="email" id="signupEmail" class="form-control" placeholder="Email">
+      <input type="tel" id="mobile" class="form-control" placeholder="Mobile No">
+      <input type="text" id="city" class="form-control" placeholder="City">
+      <input type="password" id="signupPassword" class="form-control" placeholder="Password">
+      <button class="btn-block" onclick="signUp()">Sign Up</button>
+      <div class="switch-text">Already have an account? <span onclick="showLogin()">Login</span></div>
+    </div>
+
+    <!-- Profile Card -->
+    <div class="card" id="profileCard" style="display:none;">
+      <img src="https://via.placeholder.com/100" alt="Profile Picture">
+      <h3 id="profileName"></h3>
+      <p id="profileEmail"></p>
+      <p id="profileMobile"></p>
+      <p id="profileCity"></p>
+      <div class="profile-actions">
+        <button class="btn btn-outline-primary" onclick="showEdit()">Edit</button>
+        <button class="btn btn-outline-secondary" onclick="logout()">Logout</button>
+        <a href="../pages/coupons.html" class="btn btn-outline-success">Coupons</a>
+        <a href="../pages/settings.html" class="btn btn-outline-info">Settings</a>
+        <a href="../pages/orders.html" class="btn btn-outline-warning">Orders</a>
+      </div>
+    </div>
+
+    <!-- Edit Profile Card (optional) -->
+    <div class="card" id="editCard" style="display:none;">
+      <h2>Edit Profile</h2>
+      <input type="text" id="editName" class="form-control" placeholder="Full Name">
+      <input type="email" id="editEmail" class="form-control" placeholder="Email">
+      <input type="tel" id="editMobile" class="form-control" placeholder="Mobile No">
+      <input type="text" id="editCity" class="form-control" placeholder="City">
+      <button class="btn-block" onclick="saveEdit()">Save</button>
+      <button class="btn-block btn btn-outline-secondary" onclick="cancelEdit()">Cancel</button>
+    </div>
+  </div>
+
+  <script>
+    // Store multiple users in localStorage as an array
+function getUsers() {
+  return JSON.parse(localStorage.getItem('users') || '[]');
+}
+function setUsers(users) {
+  localStorage.setItem('users', JSON.stringify(users));
+}
+
+function showSignUp() {
+      document.getElementById("loginCard").style.display = "none";
+      document.getElementById("signupCard").style.display = "block";
+      document.getElementById("profileCard").style.display = "none";
+      document.getElementById("editCard").style.display = "none";
+    }
+    function showLogin() {
+      document.getElementById("signupCard").style.display = "none";
+      document.getElementById("loginCard").style.display = "block";
+      document.getElementById("profileCard").style.display = "none";
+      document.getElementById("editCard").style.display = "none";
+    }
+    function showProfile() {
+      document.getElementById("loginCard").style.display = "none";
+      document.getElementById("signupCard").style.display = "none";
+      document.getElementById("profileCard").style.display = "block";
+      document.getElementById("editCard").style.display = "none";
+    }
+    function showEdit() {
+      let user = JSON.parse(localStorage.getItem("user"));
+      document.getElementById("editName").value = user.name;
+      document.getElementById("editEmail").value = user.email;
+      document.getElementById("editMobile").value = user.mobile;
+      document.getElementById("editCity").value = user.city;
+      document.getElementById("editCard").style.display = "block";
+      document.getElementById("profileCard").style.display = "none";
+    }
+    function cancelEdit() {
+      showProfile();
+    }
+    function saveEdit() {
+      let name = document.getElementById("editName").value;
+      let email = document.getElementById("editEmail").value;
+      let mobile = document.getElementById("editMobile").value;
+      let city = document.getElementById("editCity").value;
+      let user = JSON.parse(localStorage.getItem("user"));
+      user.name = name;
+      user.email = email;
+      user.mobile = mobile;
+      user.city = city;
+      localStorage.setItem("user", JSON.stringify(user));
+      updateProfile();
+      showProfile();
+    }
+    function signUp() {
+      let name = document.getElementById("fullName").value;
+      let email = document.getElementById("signupEmail").value;
+      let mobile = document.getElementById("mobile").value;
+      let city = document.getElementById("city").value;
+      let password = document.getElementById("signupPassword").value;
+      if (name && email && mobile && city && password) {
+        let users = getUsers();
+        if (users.find(u => u.email === email)) {
+          alert("Email already registered. Please login or use another email.");
+          return;
+        }
+        users.push({name, email, mobile, city, password});
+        setUsers(users);
+        alert("Account created successfully! Please login.");
+        showLogin();
+      } else {
+        alert("Please fill all details.");
+      }
+    }
+    function login() {
+      let email = document.getElementById("loginEmail").value;
+      let password = document.getElementById("loginPassword").value;
+      let users = getUsers();
+      let user = users.find(u => u.email === email && u.password === password);
+      if (user) {
+        localStorage.setItem("user", JSON.stringify(user));
+        updateProfile();
+        showProfile();
+        setCurrentUser(email); // Set current user for session
+      } else {
+        alert("Invalid login credentials.");
+      }
+    }
+    function updateProfile() {
+      let user = JSON.parse(localStorage.getItem("user"));
+      if (!user) return;
+      document.getElementById("profileName").innerText = user.name;
+      document.getElementById("profileEmail").innerText = "Email: " + user.email;
+      document.getElementById("profileMobile").innerText = "Mobile: " + user.mobile;
+      document.getElementById("profileCity").innerText = "City: " + user.city;
+    }
+    function logout() {
+      showLogin();
+      clearCurrentUser(); // Clear current user on logout
+      localStorage.removeItem("user");
+    }
+    // On page load, show login or profile if already logged in
+    (function() {
+      let currentUser = getCurrentUser();
+      let users = getUsers();
+      if (currentUser && users.find(u => u.email === currentUser)) {
+        localStorage.setItem("user", JSON.stringify(users.find(u => u.email === currentUser)));
+        updateProfile();
+        showProfile();
+      } else {
+        // Remove any stale user info if not logged in
+        localStorage.removeItem("user");
+        showLogin();
+      }
+    })();
+  </script>
+
+<section class="footer-section">
+  <div class="sec4">
+    <div class="sec4First">
+      <div class="sec4LogoAndSocialMedia">
+        <div class="sec4Img">
+          <img src="../Assets/finalLogo.png" alt="notloded">
+        </div>
+        <div class="sec4slogo">
+          <img src="../Assets/facebook2.png" alt="">
+          <img src="../Assets/instgram2.png" alt="">
+          <img src="../Assets/linkdin2.png" alt="">
+          <img src="../Assets/twitter2.png" alt="">
+        </div>
+      </div>
+      <div class="sec4QuickLinks">
+        <h2>Quick Links</h2>
+        <ul>
+          <li>
+            <h4>Products</h4>
+          </li>
+          <li>
+            <h4>Industries</h4>
+          </li>
+          <li>
+            <h4>Sustainbilitys</h4>
+          </li>
+          <li>
+            <h4>R&D</h4>
+          </li>
+          <li>
+            <h4>Carrer</h4>
+          </li>
+        </ul>
+      </div>
+      <div class="sec4Contactus">
+        <h2>Contact Us</h2>
+        <ul>
+          <li>
+            <h4>Email : Helpline.aquill@gmail.com</h4>
+          </li>
+          <li>
+            <h4>Tel : +91 9328227272</h4>
+          </li>
+          <li>
+            <h4>Fax : +91 9909150835</h4>
+          </li>
+        </ul>
+      </div>
+    </div>
+    <div class="line">
+      <hr>
+    </div>
+    <div class="sec4Second">
+      <div class="sec4footerpart1">
+        <h3>Copyright © 2021 AQuiLL Chemical Industries Ltd. All rights reserved.</h3>
+        <h3>Handcrafted with ❤ by YUG SAVALIYA</h3>
+      </div>
+      <div class="sec4footerpart2">
+        <h3>Terms & Condition - Purchase - Sales Disclaimer Privacy Policy</h3>
+      </div>
+    </div>
+  </div>
+</section>
+
+<script src="../script/script.js"></script>
+</body>
+</html>
