@@ -1,0 +1,507 @@
+/* ===== FOOTER SECTION (from product.css) ===== */
+.sec4 {
+    background-color: #071434;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 100%;
+    margin-top: 120px;
+    padding-top: 40px;
+    color: #F4F8FF;
+    overflow: hidden;
+}
+.sec4First {
+    width: 100%;
+    padding: 40px 0px 10px 0px;
+    height: auto;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-evenly;
+    align-items: flex-start;
+    background-color: transparent;
+}
+.sec4LogoAndSocialMedia {
+    background-color: transparent;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+.sec4Img img {
+    width: 250px;
+    padding: 50px 50px 10px 50px;
+    padding-top: 0px;
+    height: auto;
+    background-color: transparent;
+}
+.sec4Img {
+    background-color: transparent;
+}
+.sec4slogo img {
+    background-color: transparent;
+    margin: 10px;
+}
+.sec4slogo, .sec4QuickLinks, .sec4Contactus {
+    background-color: transparent;
+}
+.sec4Contactus ul {
+    background-color: transparent;
+    list-style-type: none;
+}
+.sec4footerpart1 {
+    background-color: #071434;
+}
+.sec4Contactus li {
+    background-color: transparent;
+}
+.sec4Contactus h4 {
+    background-color: transparent;
+}
+.sec4QuickLinks ul {
+    background-color: transparent;
+    list-style-type: none;
+}
+.sec4QuickLinks li {
+    font-size: medium;
+    background-color: transparent;
+}
+.sec4QuickLinks h4 {
+    background-color: transparent;
+}
+.sec4Contactus {
+    line-height: 30px;
+}
+.sec4QuickLinks {
+    line-height: 30px;
+}
+.sec4Contactus h2 {
+    margin-bottom: 10px;
+    background-color: transparent;
+}
+.sec4QuickLinks h2 {
+    margin-bottom: 10px;
+    background-color: transparent;
+}
+.sec4Second {
+    background-color: #071434;
+    padding: 30px 150px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 100vw;
+}
+.line {
+    width: 80vw;
+}
+.sec4footerpart1 h3 {
+    background-color: #071434;
+    font-size: medium;
+    line-height: 35px;
+}
+.sec4footerpart2 h3 {
+    background-color: #071434;
+    background: transparent;
+    font-size: medium;
+    line-height: 35px;
+}
+.sec4footerpart2 {
+    background: transparent;
+}
+@media (max-width: 780px) {
+    .sec4First {
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        width: 90%;
+        margin-bottom: 10px;
+    }
+    .sec4Second {
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        width: 100vw;
+        margin: 0;
+        padding: 10px !important;
+    }
+    .sec4footerpart1 h3 {
+        margin-bottom: 10px;
+    }
+    .sec4footerpart2 {
+        margin: 0px;
+    }
+    .sec4QuickLinks, .sec4LogoAndSocialMedia, .sec4Img {
+        margin-bottom: 20px;
+    }
+    .sec4 {
+        justify-content: center;
+        align-items: center;
+        width: 100vw;
+    }
+}
+/* ===== GLOBAL STYLING ===== */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Karla', sans-serif;
+}
+
+body {
+    min-height: 100vh;
+    background: url('../Assets/image.png') no-repeat center center fixed;
+    background-size: cover;
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+    padding-top: 140px; /* navbar offset */
+}
+
+.main-container {
+    width: 100%;
+    max-width: 450px;
+    margin: 20px auto;
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    align-items: center;
+    transition: all 0.4s cubic-bezier(.4,0,.2,1);
+    flex: 1 0 auto;
+}
+
+.footer-section {
+    flex-shrink: 0;
+}
+
+
+
+/* ===== NAVBAR (copied from sus.css) ===== */
+.nav {
+    width: 100vw;
+    height: 100px;
+    z-index: 1000;
+    background-color: #fff;
+    position: fixed;
+    top: 0;
+    padding: 0;
+    overflow-x: hidden;
+    box-shadow: 5px 5px 5px rgba(0, 0, 0, 0.22);
+    transition: all 0.3s ease;
+}
+
+.wrap{
+    width:100%;
+    z-index: 110;
+    background-color: rgb(255, 255, 255);
+    margin: 0;
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+    -webkit-box-pack:justify;
+        -ms-flex-pack:justify;
+            justify-content:space-between;
+    
+}
+
+.navLogo {
+    padding: 0 0 0 16px;
+    margin: 0;
+    z-index: 120;
+    background-color: #fff;
+    display: flex;
+    align-items: center;
+}
+
+.navLogo img {
+    height: 140px;
+    width: auto;
+    object-fit: contain;
+    object-position: left center;
+    transition: transform 0.3s ease;
+}
+
+.navLogo img:hover {
+    transform: scale(1.05);
+}
+
+.navList {
+    display: flex;
+    gap: 32px;
+    align-items: center;
+}
+
+.navList a, .navList h4 {
+    font-family: 'Karla', Arial, Helvetica, sans-serif;
+    font-weight: 400;
+    font-size: 1.15rem;
+    text-decoration: none;
+    color: rgb(0, 0, 0);
+    position: relative;
+    padding-bottom: 4px;
+    transition: all 0.3s ease;
+    display: flex;
+    align-items: center;
+}
+
+.navList a:hover, .navList h4:hover {
+    color: #ffc034; /* hover color from sus.css */
+}
+
+.navList a::after, .navList h4::after {
+    content: '';
+    display: block;
+    height: 2px;
+    width: 0%;
+    background: #ffc034; /* underline hover color */
+    transition: width 0.3s ease;
+    position: absolute;
+    bottom: 0;
+    left: 0;
+}
+
+.navList a:hover::after, .navList h4:hover::after {
+    width: 100%;
+}
+
+/* ===== MAIN CONTAINER ===== */
+.main-container {
+    width: 100%;
+    max-width: 450px;
+    margin: 20px auto;
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    align-items: center;
+    transition: all 0.4s cubic-bezier(.4,0,.2,1);
+}
+
+/* ===== CARD STYLING ===== */
+.card {
+    background: rgba(255, 255, 255, 0.95);
+    border-radius: 20px;
+    padding: 30px 20px;
+    box-shadow: 0 10px 40px rgba(0,0,0,0.1);
+    text-align: center;
+    position: relative;
+    overflow: hidden;
+    transition: transform 0.4s cubic-bezier(.4,0,.2,1), box-shadow 0.4s cubic-bezier(.4,0,.2,1);
+display: flex;
+flex-direction: column;
+align-items: center;
+justify-content: center;
+}
+.card:hover {
+    transform: translateY(-8px);
+    box-shadow: 0 15px 50px rgba(0,0,0,0.15);
+}
+
+/* Floating decorative shapes */
+.card::before, .card::after {
+    content: '';
+    position: absolute;
+    border-radius: 50%;
+    opacity: 0.1;
+}
+.card::before {
+    width: 120px;
+    height: 120px;
+    background: #ffc034;
+    top: -40px;
+    right: -40px;
+}
+.card::after {
+    width: 80px;
+    height: 80px;
+    background: #ff7a18;
+    bottom: -30px;
+    left: -30px;
+}
+
+/* ===== INPUTS ===== */
+.form-control {
+    width: 100%;
+    padding: 12px;
+    margin: 10px 0;
+    border-radius: 12px;
+    border: 1px solid #ddd;
+    font-size: 1rem;
+}
+
+/* ===== BUTTONS ===== */
+.btn-block {
+    width: 100%;
+    padding: 12px;
+    border-radius: 50px;
+    font-weight: 600;
+    background: linear-gradient(90deg, #ffc034, #ff7a18);
+    color: #fff;
+    border: none;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+.btn-block:hover {
+    background: linear-gradient(90deg, #ff7a18, #ffc034);
+    transform: scale(1.05);
+}
+
+/* ===== SWITCH TEXT ===== */
+.switch-text {
+    margin-top: 15px;
+    font-size: 0.9rem;
+}
+.switch-text span {
+    color: #ff7a18;
+    cursor: pointer;
+    font-weight: 500;
+}
+.switch-text span:hover {
+    text-decoration: underline;
+}
+
+/* ===== PROFILE IMAGE ===== */
+/* Profile image only: keep round shape for profile, not navbar logo */
+.main-container img {
+    border-radius: 50%;
+    margin-bottom: 15px;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+.main-container img:hover {
+    transform: scale(1.15);
+    box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+}
+
+
+/* ===== PROFILE ACTIONS ===== */
+.profile-actions {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 10px;
+    margin-top: 20px;
+}
+.profile-actions .btn, 
+.profile-actions a.btn {
+    min-width: 120px;
+    border-radius: 50px;
+    transition: all 0.3s ease;
+}
+.profile-actions .btn:hover,
+.profile-actions a.btn:hover {
+    transform: scale(1.05);
+    box-shadow: 0 5px 20px rgba(0,0,0,0.1);
+}
+/* ===== PROFILE CARD ===== */
+#profileCard {
+    background: rgba(255, 255, 255, 0.95);
+    backdrop-filter: blur(12px);
+    border-radius: 22px;
+    padding: 35px 25px;
+    max-width: 450px;
+    margin: 60px auto;
+    text-align: center;
+    box-shadow: 0 10px 40px rgba(0,0,0,0.15);
+    position: relative;
+    animation: fadeInUp 0.8s ease forwards;
+}
+
+/* Profile Photo */
+.profile-pic img {
+    width: 120px;
+    height: 120px;
+    border-radius: 50%;
+    object-fit: cover;
+    border: 5px solid #ffc034;
+    margin-bottom: 12px;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+.profile-pic img:hover {
+    transform: scale(1.1);
+    box-shadow: 0 10px 25px rgba(0,0,0,0.2);
+}
+
+/* User Info */
+#profileCard h3 {
+    font-size: 1.5rem;
+    font-weight: 700;
+    color: #333;
+    margin-bottom: 8px;
+}
+#profileCard p {
+    font-size: 0.95rem;
+    color: #555;
+    margin: 4px 0;
+}
+
+/* Action Buttons */
+.profile-actions {
+    margin: 18px 0;
+    display: flex;
+    justify-content: center;
+    gap: 12px;
+}
+.profile-actions .btn {
+    padding: 10px 20px;
+    border-radius: 50px;
+    font-weight: 600;
+    border: none;
+    cursor: pointer;
+    background: linear-gradient(90deg, #ffc034, #ff7a18);
+    color: #fff;
+    transition: all 0.3s ease;
+}
+.profile-actions .btn:hover {
+    transform: scale(1.05);
+    background: linear-gradient(90deg, #ff7a18, #ffc034);
+    box-shadow: 0 6px 20px rgba(0,0,0,0.15);
+}
+.logout {
+    background: #ff4d4d !important;
+}
+.logout:hover {
+    background: #e63939 !important;
+}
+
+/* Features Section */
+.profile-features {
+    margin-top: 20px;
+    display: flex;
+    justify-content: space-around;
+    gap: 15px;
+}
+.profile-features .feature {
+    background: #f7f7f7;
+    border-radius: 15px;
+    padding: 15px 20px;
+    flex: 1;
+    text-decoration: none;
+    color: #333;
+    font-weight: 600;
+    font-size: 0.9rem;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    transition: all 0.3s ease;
+}
+.profile-features .feature i {
+    font-size: 1.4rem;
+    margin-bottom: 6px;
+    color: #ff7a18;
+}
+.profile-features .feature:hover {
+    transform: translateY(-4px);
+    background: #ffc03422;
+    box-shadow: 0 8px 20px rgba(0,0,0,0.1);
+}
+
+/* Animation */
+@keyframes fadeInUp {
+    from {
+        opacity: 0;
+        transform: translateY(40px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+
